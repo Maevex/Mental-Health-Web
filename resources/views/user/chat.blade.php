@@ -2,50 +2,45 @@
 
 @section('content')
 
-@if (session('success'))
-  <div class="alert alert-success">
-    {{ session('success') }}
-  </div>
-@endif
+<div class="container py-4">
+    <h2>Chat Konsultasi</h2>
 
-<div class="container-fluid">
-    <div class="row" style="height: 80vh;">
-       <!-- Sidebar -->
-<div class="col-md-3 border-end bg-light p-3 overflow-auto">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h5 class="mb-0">Sesi Chat</h5>
-        <a href="#" class="btn btn-sm btn-success">+ New Chat</a>
-    </div>
-    <ul class="list-group">
-        @forelse($sessions as $sesi)
-            <a href="a" class="list-group-item list-group-item-action">
-                Sesi #{{ $sesi['sesi_id'] }} <br>
-                <small class="text-muted">{{ $sesi['waktu_mulai'] }}</small>
-            </a>
-        @empty
-            <li class="list-group-item">Belum ada sesi</li>
-        @endforelse
-    </ul>
-</div>
-
-<!-- Chat Area -->
-<div class="col-md-9 p-4 d-flex flex-column justify-content-between" style="height: 100%; background-color: #f8f9fa;">
-  
-    <div class="mb-4">
-        <h4 class="text-muted text-center">Hai<br>Apa yang mau kamu keluhkan?</h4>
-    </div>
-
-    <!-- Input Chat -->
-    <form>
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Tulis pesan di sini..." disabled>
-            <button class="btn btn-primary" type="button" disabled>Kirim</button>
+    <div class="row">
+        <!-- Sidebar sesi -->
+        <div class="col-md-3">
+            <a href="{{ url('/user/chat') }}" class="btn btn-primary mb-3">+ New Chat</a>
+            <div class="list-group">
+                @foreach ($sesiList as $sesi)
+                    <a href="{{ url('/user/chat?sesi_id=' . $sesi['sesi_id']) }}"
+                       class="list-group-item list-group-item-action {{ $activeSesiId == $sesi['sesi_id'] ? 'active' : '' }}">
+                        Sesi {{ $sesi['sesi_id'] }}
+                    </a>
+                @endforeach
+            </div>
         </div>
-    </form>
-</div>
 
-
-        
+        <!-- Chat area -->
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                    @foreach ($messages as $msg)
+                        <div class="mb-2 text-{{ $msg['sender'] === 'user' ? 'end' : 'start' }}">
+                            <span class="badge bg-{{ $msg['sender'] === 'user' ? 'primary' : 'secondary' }}">
+                                {{ $msg['content'] }}
+                            </span>
+                        </div>
+                    @endforeach
+                </div>
+                <form method="POST" action="{{ route('user.chat.send') }}" class="p-3">
+                    @csrf
+                    <input type="hidden" name="sesi_id" value="{{ $activeSesiId }}">
+                    <div class="input-group">
+                        <input type="text" name="message" class="form-control" placeholder="Tulis pesan..." required>
+                        <button class="btn btn-success" type="submit">Kirim</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

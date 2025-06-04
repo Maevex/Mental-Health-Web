@@ -4,18 +4,26 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\KeluhanController;
+use App\Http\Controllers\LoginController;
 
-Route::get('/register', [UserController::class, 'showRegisterForm']);
-Route::get('/login', [UserController::class, 'showLoginForm'])->name('showLoginForm');
-Route::post('/register', [UserController::class, 'register']);
-Route::post('/login', [UserController::class, 'login']);
-Route::get('/chat', [ChatController::class, 'index'])->name('chat');
-Route::get('/user/dash', function () {
-    return view('user.dash');
+
+
+Route::get('/', function () {
+    return redirect()->route('login'); // ini ngarahin ke /login
 });
 
-Route::get('/admin/dash', function () {
-    return view('admin.dash');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+
+
+Route::prefix('user')->group(function () {
+    Route::get('/dash', [UserController::class, 'showDashboard'])->name('user.dash');
+    Route::get('/subkategori', [UserController::class, 'showSubkategori'])->name('user.subkategori');
+    Route::get('/keluhan', [UserController::class, 'showKeluhan'])->name('user.keluhan');
+    Route::post('/keluhan', [UserController::class, 'submitKeluhan'])->name('user.keluhan.submit');
+       Route::get('/chat', [UserController::class, 'chat']);
+    Route::post('/chat/send', [UserController::class, 'sendChat'])->name('user.chat.send');
 });
-Route::get('/keluhan', [KeluhanController::class, 'showForm'])->name('keluhan.form');
-Route::post('/keluhan', [KeluhanController::class, 'submit'])->name('keluhan.submit');
+
+
+

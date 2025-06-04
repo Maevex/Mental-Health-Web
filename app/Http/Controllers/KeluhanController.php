@@ -1,61 +1,79 @@
-<?php
+<!-- 
 
-namespace App\Http\Controllers;
+// namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+// use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Http;
 
-class KeluhanController extends Controller
-{
-    public function showForm()
-    {
-        return view('user.keluhan_form');
-    }
+// class KeluhanController extends Controller
+// {
+//     public function showForm(Request $request) {
+//     $kategori = $request->query('kategori') ?? session('kategori');
+//     session(['kategori' => $kategori]);
+//     return view('user.keluhan_form', compact('kategori'));
+// }
 
-    public function submit(Request $request)
-{
-    $kategori = $request->kategori;
-    $keluhan = $request->keluhan;
-    $token = session('jwt_token');
+//     public function showKategori() {
+//     return view('user.keluhan_kategori');
+// }
 
-    \Log::info('Mengirim keluhan', [
-        'kategori' => $kategori,
-        'keluhan' => $keluhan,
-        'token' => $token ? 'ADA' : 'KOSONG'
-    ]);
+//     public function submit(Request $request)
+// {
+//     $kategori = $request->kategori;
+//     $keluhan = $request->keluhan;
+//     $token = session('jwt_token');
 
-    try {
-        $response = Http::withToken($token)
-            ->withHeaders([
-                'Content-Type' => 'application/json'
-            ])
-            ->post('http://localhost:8080/analisa-keluhan', [
-                'kategori' => $kategori,
-                'keluhan' => $keluhan,
-            ]);
+//     \Log::info('Mengirim keluhan', [
+//         'kategori' => $kategori,
+//         'keluhan' => $keluhan,
+//         'token' => $token ? 'ADA' : 'KOSONG'
+//     ]);
 
-        \Log::info('Status Response', ['status' => $response->status()]);
-        \Log::info('Isi Response', ['body' => $response->body()]);
+//     try {
+//         $response = Http::withToken($token)
+//             ->withHeaders([
+//                 'Content-Type' => 'application/json'
+//             ])
+//             ->post('http://localhost:8080/analisa-keluhan', [
+//                 'kategori' => $kategori,
+//                 'keluhan' => $keluhan,
+//             ]);
 
-        if ($response->successful()) {
-            $data = $response->json();
+//         \Log::info('Status Response', ['status' => $response->status()]);
+//         \Log::info('Isi Response', ['body' => $response->body()]);
 
-            return view('user.keluhan_form', [
-                'kesimpulan' => $data['kesimpulan'] ?? '',
-                'saran' => $data['saran'] ?? '',
-                'rekomendasi' => $data['rekomendasi'] ?? '',
-                'konsultan' => $data['konsultan'] ?? [],
-                'kategori' => $kategori,
-                'keluhan' => $keluhan,
-            ]);
-        } else {
-            \Log::error('Gagal menghubungi backend', ['response' => $response->body()]);
-            return back()->with('error', 'Gagal menghubungi server.')->withInput();
-        }
-    } catch (\Exception $e) {
-        \Log::error('Exception saat kirim keluhan', ['message' => $e->getMessage()]);
-        return back()->with('error', 'Terjadi kesalahan internal.')->withInput();
-    }
-}
+//         if ($response->successful()) {
+//          $data = $response->json();
 
-}
+//     session([
+//         'kesimpulan' => $data['kesimpulan'] ?? '',
+//         'saran' => $data['saran'] ?? '',
+//         'rekomendasi' => $data['rekomendasi'] ?? '',
+//         'konsultan' => $data['konsultan'] ?? [],
+//         'kategori' => $kategori,
+//         'keluhan' => $keluhan,
+//     ]);
+
+//     return redirect()->route('keluhan.hasil');
+// } else {
+//             \Log::error('Gagal menghubungi backend', ['response' => $response->body()]);
+//             return back()->with('error', 'Gagal menghubungi server.')->withInput();
+//         }
+//     } catch (\Exception $e) {
+//         \Log::error('Exception saat kirim keluhan', ['message' => $e->getMessage()]);
+//         return back()->with('error', 'Terjadi kesalahan internal.')->withInput();
+//     }
+// }
+
+//     public function showHasil() {
+//     return view('user.keluhan_hasil', [
+//         'kesimpulan' => session('kesimpulan'),
+//         'saran' => session('saran'),
+//         'rekomendasi' => session('rekomendasi'),
+//         'konsultan' => session('konsultan'),
+//         'kategori' => session('kategori'),
+//         'keluhan' => session('keluhan'),
+//     ]);
+// }
+
+// } -->
