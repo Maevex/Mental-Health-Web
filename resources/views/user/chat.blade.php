@@ -8,7 +8,7 @@
     <div class="row">
         <!-- Sidebar sesi -->
         <div class="col-md-3">
-            <a href="{{ url('/user/chat') }}" class="btn btn-primary mb-3">+ New Chat</a>
+            <a href="{{ url('/user/chat?sesi_id=baru') }}" class="btn btn-primary mb-3">+ New Chat</a>
             <div class="list-group">
                 @foreach ($sesiList as $sesi)
                     <a href="{{ url('/user/chat?sesi_id=' . $sesi['sesi_id']) }}"

@@ -180,6 +180,11 @@ public function chat(Request $request)
     //     $lastSesi = end($sesiList);
     //     $activeSesiId = $lastSesi['sesi_id'];
     // }
+    $activeSesiId = $request->input('sesi_id');
+if ($activeSesiId === 'baru') {
+    $activeSesiId = null; // biar kirim chat tanpa sesi_id → backend akan bikin sesi baru
+}
+    
 
     if ($activeSesiId) {
         $detailRes = Http::withToken($token)->get(env('GOLANG_API_URL') . '/sesi/' . $activeSesiId);
@@ -213,7 +218,8 @@ public function sendChat(Request $request)
 
     $response = Http::withToken($token)->post(env('GOLANG_API_URL') . '/chat', [
     'message' => $request->message,
-    'sesi_id' => (int) $request->sesi_id,
+    'sesi_id' => $request->sesi_id !== null && $request->sesi_id !== '' ? (int) $request->sesi_id : null,
+
 ])->json();
       
 
