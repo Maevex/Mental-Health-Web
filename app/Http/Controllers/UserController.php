@@ -211,6 +211,21 @@ if ($activeSesiId === 'baru') {
     ]);
 }
 
+public static function renderWithBoldAndBreaks($text)
+{
+    // Escape semua teks dulu agar aman dari XSS
+    $text = e($text);
+
+    // Ubah kembali tag **bold** jadi <strong> (setelah di-escape)
+    // Gunakan preg_replace_callback supaya bisa decode hanya bagian yang perlu
+    $text = preg_replace_callback('/\*\*(.*?)\*\*/', function ($matches) {
+        return '<strong>' . $matches[1] . '</strong>';
+    }, $text);
+
+    // Ubah newline ke <br>
+    return nl2br($text);
+}
+
 public function sendChat(Request $request)
 {
     $token = Session::get('token');

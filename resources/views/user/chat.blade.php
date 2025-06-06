@@ -80,7 +80,7 @@
                     @forelse ($messages as $msg)
                         <div class="d-flex {{ $msg['sender'] === 'user' ? 'justify-content-end' : 'justify-content-start' }}">
                             <div class="message-bubble {{ $msg['sender'] === 'user' ? 'message-user' : 'message-bot' }}">
-                                {{ $msg['content'] }}
+                                {!! \App\Http\Controllers\UserController::renderWithBoldAndBreaks($msg['content']) !!}
                             </div>
                         </div>
                     @empty
