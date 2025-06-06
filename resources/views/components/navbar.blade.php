@@ -4,6 +4,7 @@
         <a href="{{ url('/user/subkategori') }}" style="color: white; margin-right: 15px;">Subkategori</a>
         <a href="{{ url('/user/keluhan') }}" style="color: white; margin-right: 15px;">Keluhan</a>
         <a href="{{ url('/user/chat') }}" style="color: white;">Chat</a>
+        <a href="{{ url('/user/profile') }}" style="color: white;">profile</a>
     </div>
     <form action="{{ url('/logout') }}" method="POST" style="margin: 0;">
         @csrf

@@ -23,7 +23,14 @@ Route::prefix('user')->group(function () {
     Route::post('/keluhan', [UserController::class, 'submitKeluhan'])->name('user.keluhan.submit');
        Route::get('/chat', [UserController::class, 'chat']);
     Route::post('/chat/send', [UserController::class, 'sendChat'])->name('user.chat.send');
+    Route::get('/profile', [UserController::class, 'profile'])->name('user.profile');
+
 });
+Route::post('/logout', function () {
+    session()->forget('token');
+    return redirect('/login')->with('success', 'Berhasil logout.');
+});
+
 
 
 

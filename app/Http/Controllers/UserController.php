@@ -226,4 +226,26 @@ public function sendChat(Request $request)
     return redirect('/user/chat?sesi_id=' . ($response['sesi_id'] ?? $request->sesi_id));
 }
 
+   public function profile()
+    {
+        $token = session('token');
+
+        if (!$token) {
+            return redirect('/login')->with('error', 'Harap login terlebih dahulu.');
+        }
+
+        try {
+            $response = Http::withToken($token)->get(env('GOLANG_API_URL') . '/myuser');
+
+            if ($response->ok()) {
+                $user = $response->json();
+                return view('user.profile', compact('user'));
+            } else {
+                return view('user.profile')->with('error', 'Gagal mengambil data user.');
+            }
+        } catch (\Exception $e) {
+            return view('user.profile')->with('error', 'Terjadi kesalahan saat memuat data.');
+        }
+    }
+
 }
