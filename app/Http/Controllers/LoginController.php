@@ -40,4 +40,40 @@ class LoginController extends Controller
             return back()->withErrors(['email' => 'Terjadi kesalahan saat login.']);
         }
     }
+
+    
+
+    public function showRegisterForm()
+    {
+        return view('register');
+    }
+
+    public function register(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:100',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
+        try {
+            $response = Http::post(env('GOLANG_API_URL') . '/register', [
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'password' => $request->password,
+            ]);
+
+            if ($response->ok()) {
+                return redirect('/login')->with('success', 'Registrasi berhasil. Silakan login.');
+            } else {
+                $error = $response->json()['message'] ?? 'Registrasi gagal.';
+                return back()->withErrors(['email' => $error])->withInput();
+            }
+        } catch (\Exception $e) {
+            return back()->withErrors(['email' => 'Terjadi kesalahan saat registrasi.'])->withInput();
+        }
+    }
+
+
+    
 }

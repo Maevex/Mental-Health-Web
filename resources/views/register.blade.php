@@ -1,42 +1,121 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Register Serenity</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      font-family: 'Poppins', sans-serif;
+    }
 
-@section('title', 'Register')
+    .card-custom {
+      background-color: #fff;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
 
-@section('content')
-<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-  <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
-    <h4 class="text-center mb-4">Register</h4>
+    .form-control-custom {
+      height: 50px;
+      background-color: #f0f4f8;
+      border: none;
+      border-radius: 15px;
+      padding: 0 15px;
+      font-size: 15px;
+      color: #333;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
 
-    @if (session('success'))
-      <div class="alert alert-success">
-        {{ session('success') }}
-      </div>
-    @endif
+    .form-control-custom:focus {
+      box-shadow: 0 0 0 2px #4d9eff44;
+    }
 
-    {{-- ALERT ERROR --}}
-    @if (session('error'))
-      <div class="alert alert-danger">
-        {{ session('error') }}
-      </div>
-    @endif
+    .btn-gradient {
+      background: linear-gradient(to right, #4d9eff, #66a6ff);
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 12px;
+      border-radius: 15px;
+      width: 100%;
+      transition: transform 0.1s ease;
+    }
 
+    .btn-gradient:active {
+      transform: scale(0.97);
+    }
 
-    <form method="POST" action="{{ url('/register') }}">
-      @csrf
-      <div class="form-group mb-3">
-        <label for="name">Name</label>
-        <input name="nama" type="text" class="form-control" id="name" required>
-      </div>
-      <div class="form-group mb-3">
-        <label for="email">Email address</label>
-        <input name="email" type="email" class="form-control" id="email" required>
-      </div>
-      <div class="form-group mb-3">
-        <label for="password">Password</label>
-        <input name="password" type="password" class="form-control" id="password" required>
-      </div>
-      <button type="submit" class="btn btn-success w-100">Register</button>
-    </form>
+    .title-text {
+      font-size: 24px;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .title-accent {
+      color: #4d9eff;
+    }
+
+    a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="col-md-5">
+    <div class="card card-custom">
+      <h3 class="text-center mb-4 title-text">
+        Start Your Journey with <span class="title-accent">Serenity</span>
+      </h3>
+
+      @if ($errors->any())
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
+
+      @if (session('success'))
+        <div class="alert alert-success">
+          {{ session('success') }}
+        </div>
+      @endif
+
+      <form action="/register" method="POST">
+        @csrf
+        <div class="mb-3">
+          <input type="text" name="nama" placeholder="Nama" class="form-control form-control-custom" value="{{ old('nama') }}" required>
+        </div>
+
+        <div class="mb-3">
+          <input type="email" name="email" placeholder="Email" class="form-control form-control-custom" value="{{ old('email') }}" required>
+        </div>
+
+        <div class="mb-3">
+          <input type="password" name="password" placeholder="Password" class="form-control form-control-custom" required>
+        </div>
+
+        <button type="submit" class="btn btn-gradient">Daftar</button>
+
+        <div class="text-center mt-3">
+          <a href="/login">Sudah punya akun? Login</a>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
-@endsection
+
+</body>
+</html>
