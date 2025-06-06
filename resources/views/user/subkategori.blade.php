@@ -3,7 +3,7 @@
 @section('content')
 <style>
   body {
-    background: linear-gradient(to bottom right, #89f7fe, #66a6ff);
+    background: linear-gradient(to bottom , #89f7fe, #66a6ff);
     min-height: 100vh;
   }
 
