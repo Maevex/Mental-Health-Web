@@ -33,24 +33,21 @@
     }
 
     .btn-gradient {
-  background: linear-gradient(to right, #4d9eff, #66a6ff);
-  border: none;
-  color: #fff;
-  font-weight: bold;
-  font-size: 16px;
-  padding: 12px;
-  border-radius: 15px;
-  width: 100%;
-  transition: all 0.3s ease; /* biar smooth */
+      background-color: #4d9eff;
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 12px;
+      border-radius: 15px;
+      width: 100%;
+  
 }
 
 .btn-gradient:hover {
-  background: linear-gradient(to right, #368de0, #4d9eff); 
+   background-color: #368de0;
 }
 
-.btn-gradient:active {
-  transform: scale(0.97); /* efek tekan */
-}
 
     .title-text {
       font-size: 24px;
