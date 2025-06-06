@@ -126,7 +126,7 @@ public function showSubkategori(Request $request) {
     'Selalu merasa cemas terhadap masa depan',
   ],
 
-    // sama seperti di React Native
+    
   ];
 
   $subkategori = $subkategoriList[$kategori] ?? [];
@@ -145,7 +145,7 @@ public function showKeluhan(Request $request) {
 }
 
 public function submitKeluhan(Request $request) {
-  $token = session('token'); // atau dari auth jika pakai guard
+  $token = session('token'); 
   $response = Http::withToken($token)->post(env('GOLANG_API_URL').'/analisa-keluhan', [
     'keluhan' => $request->keluhan,
     'kategori' => $request->kategori,
@@ -177,7 +177,7 @@ public function chat(Request $request)
     $sesiList = $sesiRes->json();
 
     $messages = [];
-    $activeSesiId = $request->input('sesi_id');  // ✨ ambil dari query URL
+    $activeSesiId = $request->input('sesi_id');  
 
     // if (!$activeSesiId && count($sesiList) > 0) {
     //     $lastSesi = end($sesiList);
@@ -185,7 +185,7 @@ public function chat(Request $request)
     // }
     $activeSesiId = $request->input('sesi_id');
 if ($activeSesiId === 'baru') {
-    $activeSesiId = null; // biar kirim chat tanpa sesi_id → backend akan bikin sesi baru
+    $activeSesiId = null; 
 }
     
 

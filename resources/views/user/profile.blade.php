@@ -25,7 +25,7 @@
             </div>
 
             <div class="d-grid gap-2 mt-4">
-                <a href="{{ url('/user/edit') }}" class="btn btn-primary">Edit Profil</a>
+                <!-- <a href="{{ url('/user/edit') }}" class="btn btn-primary">Edit Profil</a> -->
                 <form action="{{ url('/logout') }}" method="POST" onsubmit="return confirm('Yakin ingin logout?')">
                     @csrf
                     <button class="btn btn-danger w-100">Logout</button>
