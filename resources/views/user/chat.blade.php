@@ -111,6 +111,13 @@
 
         <!-- Chat area -->
         <div class="col-md-9">
+            @if (!empty($kontakKonsultan))
+    <div class="alert alert-warning mt-3 p-3 rounded" style="white-space: pre-line; background: #fff3cd; color: #856404;">
+        <strong>Kontak Konsultan:</strong><br>
+        {!! nl2br(e($kontakKonsultan)) !!}
+    </div>
+@endif
+
             <div class="chat-container">
                 <div class="chat-messages">
                     @forelse ($messages as $msg)

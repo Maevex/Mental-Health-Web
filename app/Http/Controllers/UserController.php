@@ -179,37 +179,35 @@ public function chat(Request $request)
     $messages = [];
     $activeSesiId = $request->input('sesi_id');  
 
-    // if (!$activeSesiId && count($sesiList) > 0) {
-    //     $lastSesi = end($sesiList);
-    //     $activeSesiId = $lastSesi['sesi_id'];
-    // }
-    $activeSesiId = $request->input('sesi_id');
-if ($activeSesiId === 'baru') {
-    $activeSesiId = null; 
-}
-    
+    if ($activeSesiId === 'baru') {
+        $activeSesiId = null; 
+    }
 
     if ($activeSesiId) {
         $detailRes = Http::withToken($token)->get(env('GOLANG_API_URL') . '/sesi/' . $activeSesiId);
         $dataDetail = $detailRes->json();
 
         foreach ($dataDetail ?? [] as $item) {
-    if (!empty($item['message'])) {
-        $messages[] = ['sender' => 'user', 'content' => $item['message']];
+            if (!empty($item['message'])) {
+                $messages[] = ['sender' => 'user', 'content' => $item['message']];
+            }
+            if (!empty($item['chatbot_response'])) {
+                $messages[] = ['sender' => 'bot', 'content' => $item['chatbot_response']];
+            }
+        }
     }
-    if (!empty($item['chatbot_response'])) {
-        $messages[] = ['sender' => 'bot', 'content' => $item['chatbot_response']];
-    }
-}
 
-    }
+    // Ambil kontak konsultan dari session flash (kalau ada)
+    $kontakKonsultan = Session::get('kontak_konsultan');
 
     return view('user.chat', [
         'sesiList' => $sesiList,
         'messages' => $messages,
         'activeSesiId' => $activeSesiId,
+        'kontakKonsultan' => $kontakKonsultan,
     ]);
 }
+
 
 public static function renderWithBoldAndBreaks($text)
 {
@@ -225,24 +223,26 @@ public static function renderWithBoldAndBreaks($text)
     // Ubah newline ke <br>
     return nl2br($text);
 }
-
 public function sendChat(Request $request)
 {
     $token = Session::get('token');
-     logger('Kirim pesan:', [
-        'message' => $request->message,
-        'sesi_id' => $request->sesi_id
-    ]);
 
     $response = Http::withToken($token)->post(env('GOLANG_API_URL') . '/chat', [
-    'message' => $request->message,
-    'sesi_id' => $request->sesi_id !== null && $request->sesi_id !== '' ? (int) $request->sesi_id : null,
+        'message' => $request->message,
+        'sesi_id' => $request->sesi_id !== null && $request->sesi_id !== '' ? (int) $request->sesi_id : null,
+    ])->json();
 
-])->json();
-      
+    // Cek kalau ada kontak konsultan (response text yang mengandung "Spesialisasi" atau format khusus)
+    $kontakKonsultan = null;
+    if (isset($response['response']) && str_contains($response['response'], 'Spesialisasi:')) {
+        $kontakKonsultan = $response['response'];
+        // Simpan ke session untuk ditampilkan di halaman chat
+        Session::flash('kontak_konsultan', $kontakKonsultan);
+    }
 
     return redirect('/user/chat?sesi_id=' . ($response['sesi_id'] ?? $request->sesi_id));
 }
+
 
    public function profile()
     {
