@@ -9,7 +9,7 @@ use App\Http\Controllers\LoginController;
 
 
 Route::get('/', function () {
-    return redirect()->route('login'); // ini ngarahin ke /login
+    return redirect()->route('landing'); // ini ngarahin ke /login
 });
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -31,6 +31,9 @@ Route::prefix('user')->group(function () {
 Route::post('/logout', function () {
     session()->forget('token');
     return redirect('/login')->with('success', 'Berhasil logout.');
+});
+Route::get('/', function () {
+    return view('landing');
 });
 
 
