@@ -95,7 +95,14 @@
 
   <p class="hasil-value" style="font-weight: 700;">{{ $saran }}</p>
 
-  <a href="{{ url('/user/chat') }}" class="chat-btn">💬 Mulai Chat</a>
+  <form method="POST" action="{{ url('/user/chat/send') }}">
+
+  @csrf
+  <input type="hidden" name="message" value="Halo, mari kita lanjut bahas masalah tersebut...">
+  <input type="hidden" name="analisa" value="{{ $kesimpulan }}">
+  <input type="hidden" name="sesi_id" value=""> 
+  <button type="submit" class="chat-btn">💬 Mulai Chat</button>
+</form>
 
   @if(!empty($rekomendasi))
   <div class="section-title mt-4">📌 {{ $rekomendasi }}</div>

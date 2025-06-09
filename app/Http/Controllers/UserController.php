@@ -61,6 +61,29 @@ public function showSubkategori(Request $request) {
     'Kehilangan salah satu anggota keluarga',
     'Kondisi rumah yang berantakan',
     'Tuntutan peran dewasa sejak kecil',],
+    'Masalah di Kantor' => 
+    ['Dikhianati teman',
+    'Deadline pekerjaan menumpuk',
+    'Konflik dengan rekan kerja',
+    'Tekanan dari atasan',
+    'Tidak puas dengan pekerjaan',
+    'Kurangnya apresiasi kerja',
+    'Jam kerja yang melelahkan',
+    'Tidak ada work-life balance',
+    'Atasan yang otoriter',
+    'Lingkungan kerja tidak mendukung',
+    'Merasa tidak berkembang',
+    'Pekerjaan tidak sesuai passion',
+    'Tugas yang tidak jelas',
+    'Karyawan toxic',
+    'Gaji yang tidak sesuai',
+    'Kurangnya kesempatan promosi',
+    'Sistem kerja yang tidak efisien',
+    'Kondisi kantor yang tidak nyaman',
+    'Masalah teknologi atau alat kerja',
+    'Kurangnya pelatihan atau skill support',
+    'Rasa terasing karena kerja remote',
+  ],
     'Masalah dengan Teman' => 
     ['Dikhianati teman',
     'Merasa tidak dianggap',
@@ -226,11 +249,25 @@ public static function renderWithBoldAndBreaks($text)
 public function sendChat(Request $request)
 {
     $token = Session::get('token');
-
-    $response = Http::withToken($token)->post(env('GOLANG_API_URL') . '/chat', [
+    
+    $payload = [
         'message' => $request->message,
         'sesi_id' => $request->sesi_id !== null && $request->sesi_id !== '' ? (int) $request->sesi_id : null,
-    ])->json();
+    ];
+
+    // Tambahkan analisa jika ada
+    if ($request->has('analisa')) {
+        $payload['analisa'] = $request->analisa;
+    }
+
+      $response = Http::withToken($token)
+    ->withHeaders([
+        'Accept' => 'application/json',
+        'Content-Type' => 'application/json'
+    ])
+    ->post(env('GOLANG_API_URL') . '/chat', $payload)
+    ->json();
+
 
     // Cek kalau ada kontak konsultan (response text yang mengandung "Spesialisasi" atau format khusus)
     $kontakKonsultan = null;
