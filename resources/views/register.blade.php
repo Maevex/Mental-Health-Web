@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <title>Register Serenity</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       background: linear-gradient(135deg, #89f7fe, #66a6ff);
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Nunito', sans-serif;
     }
 
     .card-custom {

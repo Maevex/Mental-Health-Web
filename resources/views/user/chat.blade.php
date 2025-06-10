@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
 
 <style>
     body {
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Nunito', sans-serif;
         background: linear-gradient(to bottom, #89f7fe, #66a6ff);
     }
 

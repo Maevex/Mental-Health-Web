@@ -23,7 +23,7 @@
     color: #0D47A1;
     text-align: center;
     margin-bottom: 2rem;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Nunito', sans-serif;
   }
 
   .issue-button {
@@ -33,7 +33,7 @@
     border-radius: 18px;
     width: 100%;
     font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Nunito', sans-serif;
     color: #1565C0;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     transition: all 0.2s ease;

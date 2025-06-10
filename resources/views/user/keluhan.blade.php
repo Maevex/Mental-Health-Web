@@ -4,7 +4,7 @@
   body {
     background: linear-gradient(to bottom, #89f7fe, #66a6ff);
     min-height: 100vh;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Nunito', sans-serif;
   }
   .keluhan-card {
     background-color: #fff;
@@ -19,12 +19,13 @@
     font-size: 24px;
     font-weight: 600;
     text-align: center;
-    color: #333;
+    color: #0D47A1;
+    font-weight: bold;
   }
   .keluhan-subtitle {
     font-size: 16px;
     text-align: center;
-    color: #444;
+    color: #1565C0;
     margin-bottom: 20px;
   }
   .keluhan-textarea {

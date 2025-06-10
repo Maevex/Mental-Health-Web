@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <title>Login - Serenity</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Nunito', sans-serif;
       background: linear-gradient(135deg, #89f7fe, #66a6ff);
       min-height: 100vh;
       display: flex;
@@ -106,10 +107,10 @@
         </div>
       @endif
 
-      <button type="submit" class="btn btn-login w-100 mt-2">Masuk</button>
+      <button type="submit" class="btn btn-login w-100 mt-2">Sign in</button>
 
       <div class="login-link">
-        <a href="/register">Belum punya akun? Daftar di sini</a>
+        <a href="/register">Don't have an account? join us here</a>
       </div>
     </form>
   </div>

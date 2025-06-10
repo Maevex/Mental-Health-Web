@@ -4,7 +4,7 @@
 <style>
   body {
     background: linear-gradient(to bottom, #f5f7fa, #c3cfe2);
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Nunito', sans-serif;
   }
 
   .hasil-container {

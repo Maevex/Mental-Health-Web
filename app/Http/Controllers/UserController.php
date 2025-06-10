@@ -155,7 +155,7 @@ public function showSubkategori(Request $request) {
   $subkategori = $subkategoriList[$kategori] ?? [];
 
   shuffle($subkategori);
-  $subkategori = array_slice($subkategori, 0, 5);
+  $subkategori = array_slice($subkategori, 0, 6);
   
   return view('user.subkategori', compact('kategori', 'subkategori'));
 }
