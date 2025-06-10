@@ -153,12 +153,14 @@ public function showSubkategori(Request $request) {
   ];
 
    $sessionKey = 'subkategori_' . $kategori;
-    if (!session()->has($sessionKey)) {
-        shuffle($fullList);
-        session([$sessionKey => $fullList]);
-    } else {
-        $fullList = session($sessionKey);
-    }
+
+if (!session()->has($sessionKey)) {
+    $fullList = $subkategoriList[$kategori] ?? []; // ✅ pastikan ada datanya
+    shuffle($fullList); // ✅ baru di-shuffle
+    session([$sessionKey => $fullList]);
+} else {
+    $fullList = session($sessionKey);
+}
 
     // Pagination manual
     $perPage = 6;
