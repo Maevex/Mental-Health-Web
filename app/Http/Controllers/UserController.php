@@ -152,12 +152,29 @@ public function showSubkategori(Request $request) {
     
   ];
 
-  $subkategori = $subkategoriList[$kategori] ?? [];
+   $sessionKey = 'subkategori_' . $kategori;
+    if (!session()->has($sessionKey)) {
+        shuffle($fullList);
+        session([$sessionKey => $fullList]);
+    } else {
+        $fullList = session($sessionKey);
+    }
 
-  shuffle($subkategori);
-  $subkategori = array_slice($subkategori, 0, 6);
-  
-  return view('user.subkategori', compact('kategori', 'subkategori'));
+    // Pagination manual
+    $perPage = 6;
+    $page = $request->query('page', 1);
+    $offset = ($page - 1) * $perPage;
+
+    $paginated = array_slice($fullList, $offset, $perPage);
+    $total = count($fullList);
+    $lastPage = ceil($total / $perPage);
+
+    return view('user.subkategori', [
+        'kategori' => $kategori,
+        'subkategori' => $paginated,
+        'currentPage' => $page,
+        'lastPage' => $lastPage
+    ]);
 }
 
 public function showKeluhan(Request $request) {

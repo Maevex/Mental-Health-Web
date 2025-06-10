@@ -1,31 +1,23 @@
-<!-- Navbar -->
 <nav class="custom-navbar">
   <div class="nav-left">
+    <a href="{{ url('/') }}" class="brand">Serenity</a>
     <a href="{{ route('user.dash') }}">Keluhan</a>
     <a href="{{ url('/user/chat') }}">Chat</a>
-    <a href="{{ url('/user/profile') }}">Profile</a>
+    <!-- <a href="{{ url('/user/profile') }}">Profile</a> -->
   </div>
-  <form action="{{ url('/logout') }}" method="POST">
-    @csrf
-    <button type="submit">Logout</button>
-  </form>
+  @if (session('token'))
+    <form action="{{ url('/logout') }}" method="POST" style="display: inline;">
+      @csrf
+      <button type="submit" style="background: white; color: #1565C0; padding: 8px 18px; border-radius: 12px; font-weight: 600; border: none; cursor: pointer;">Logout</button>
+    </form>
+  @else
+    <a href="{{ url('/register') }}">Register</a>
+    <a href="{{ url('/login') }}">Login</a>
+  @endif
 </nav>
 
-<!-- Google Fonts Nunito -->
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
 <style>
-  body {
-    font-family: 'Nunito', sans-serif;
-    padding-top: 70px; /* biar konten nggak ketimpa navbar */
-  }
-
   .custom-navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 999;
     background: #4A90E2;
     padding: 12px 24px;
     color: white;
@@ -37,16 +29,27 @@
     border-radius: 0 0 20px 20px;
   }
 
+  .custom-navbar .nav-left {
+    display: flex;
+    align-items: center;
+  }
+
   .custom-navbar a {
     color: white;
     text-decoration: none;
     margin-right: 18px;
-    font-weight: 600;
+    font-weight: 500;
     transition: all 0.2s ease-in-out;
   }
 
   .custom-navbar a:hover {
     opacity: 0.85;
+  }
+
+  .custom-navbar a.brand {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-right: 24px;
   }
 
   .custom-navbar form {
@@ -60,7 +63,7 @@
     padding: 6px 16px;
     border-radius: 12px;
     font-family: 'Nunito', sans-serif;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
     transition: background 0.2s ease-in-out;
   }
@@ -77,7 +80,6 @@
     }
 
     .custom-navbar .nav-left {
-      display: flex;
       flex-wrap: wrap;
       gap: 10px;
     }

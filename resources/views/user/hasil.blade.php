@@ -91,7 +91,8 @@
   </div>
 
   <div class="section-title">🧠 Kesimpulan Chatbot</div>
-  <p class="hasil-value">{!! nl2br(e($kesimpulan)) !!}</p>
+  <p class="hasil-value">{!! \App\Http\Controllers\UserController::renderWithBoldAndBreaks($kesimpulan) !!}</p>
+
 
   <p class="hasil-value" style="font-weight: 700;">{{ $saran }}</p>
 

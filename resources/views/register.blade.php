@@ -109,10 +109,10 @@
           <input type="password" name="password" placeholder="Password" class="form-control form-control-custom" required>
         </div>
 
-        <button type="submit" class="btn btn-gradient">Daftar</button>
+        <button type="submit" class="btn btn-gradient">Sign Up</button>
 
         <div class="text-center mt-3">
-          <a href="/login">Sudah punya akun? Login</a>
+          <a href="/login">Already have an account? Sign In</a>
         </div>
       </form>
     </div>
